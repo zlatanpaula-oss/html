@@ -20,10 +20,9 @@
     position: relative;
   }
   .brand-section { display: flex; align-items: center; gap: 15px; }
-  .logo-image { width: 50px; height: auto; }
   .brand-name { font-size: 24px; font-weight: bold; }
   
-  /* Título Centralizado */
+  /* Centralized Header Title */
   .center-title {
     position: absolute;
     left: 50%;
@@ -45,86 +44,166 @@
   .welcome-text { margin-bottom: 30px; }
   .welcome-text h1 { font-size: 28px; margin-bottom: 8px; }
   .welcome-text p { color: #8fa0dd; font-size: 16px; }
+
+  /* Filtro de Turma */
+  .filter-section { margin-bottom: 30px; display: flex; flex-direction: column; gap: 10px; max-width: 300px; }
+  .filter-section label { font-size: 14px; color: #8fa0dd; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+  .select-turma { 
+    padding: 12px; 
+    background-color: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-radius: 8px; 
+    color: #ffffff; 
+    font-size: 16px; 
+    outline: none; 
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  .select-turma:focus { border-color: #4facfe; }
+  .select-turma option { background-color: #0b112c; color: #ffffff; }
+
+  /* Estilos da Grade de Horários e Botões */
+  .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+  .agenda-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 12px; backdrop-filter: blur(5px); text-align: center; }
+  .agenda-card h3 { margin-bottom: 15px; color: #4facfe; }
+
+  /* Botão Interativo */
+  .btn-reservar { 
+    width: 100%; 
+    padding: 10px; 
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); 
+    border: none; 
+    border-radius: 8px; 
+    color: #0b112c; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+  }
+  .btn-reservar:hover { opacity: 0.9; transform: translateY(-2px); }
   
-  /* Container e Estilização da Tabela */
-  .table-container { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; overflow-x: auto; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
-  table { width: 100%; border-collapse: collapse; text-align: center; min-width: 600px; }
-  th, td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-  th { background: linear-gradient(to right, #2575fc, #6a11cb); color: #ffffff; font-weight: bold; font-size: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
-  th:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
-  th:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
-  tr:hover td { background-color: rgba(255, 255, 255, 0.03); color: #4facfe; transition: all 0.2s ease; }
-  td { color: #e2e8f0; font-size: 15px; }
-  .horario-cell { font-weight: bold; color: #8fa0dd; background-color: rgba(255, 255, 255, 0.02); border-right: 1px solid rgba(255, 255, 255, 0.05); }
-  
-  /* Responsividade */
-  @media (max-width: 768px) {
-    header { padding: 20px; flex-direction: column; gap: 15px; text-align: center; }
-    .center-title { position: static; transform: none; margin-top: 5px; }
+  /* Estado de Reservado */
+  .btn-reservar.reservado { 
+    background: #28a745; 
+    color: #ffffff; 
+    cursor: pointer; 
+  }
+
+  /* Identificação do Recurso */
+  .lab-footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #8fa0dd;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="brand-section">
-    <img src="https://postimg.cc" alt="Logo AgendaTech" class="logo-image">
-    <div class="brand-name">AgendaTech</div>
-  </div>
-  
-  <!-- Texto Centralizado Alterado para Notebook -->
-  <div class="center-title">Notebook</div>
+  <header>
+    <div class="brand-section">
+      <div class="brand-name">AgendaTech</div>
+    </div>
+    <div class="center-title">Painel de Agendamentos</div>
+    <div class="user-profile">
+      <span class="user-name">Olá, Usuário</span>
+      <button class="btn-sair">Sair</button>
+    </div>
+  </header>
 
-  <div class="user-profile">
-    <span class="user-name">Olá, Usuário</span>
-    <button class="btn-sair" onclick="window.location.href='#'">Sair</button>
-  </div>
-</header>
+  <main>
+    <div class="welcome-text">
+      <h1>Bem-vindo ao seu painel</h1>
+      <p>Selecione sua turma e escolha um horário abaixo para realizar a sua reserva.</p>
+    </div>
 
-<main>
-  <div class="welcome-text">
-    <h1>Quadro de Horários por Turma</h1>
-    <p>Confira a distribuição das aulas e turmas nos respectivos períodos.</p>
-  </div>
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Horário</th>
-          <th>6º Ano</th>
-          <th>7º Ano</th>
-          <th>8º Ano</th>
-          <th>9º Ano</th>
-          <th>1 TDS</th>
-          <th>2 TDS</th>
-          <th>3 TDS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="horario-cell">07:25</td>
-          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-        </tr>
-        <tr>
-          <td class="horario-cell">08:15</td>
-          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-        </tr>
-        <tr>
-          <td class="horario-cell">09:05</td>
-          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-        </tr>
-        <tr>
-          <td class="horario-cell">10:05</td>
-          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-        </tr>
-        <tr>
-          <td class="horario-cell">11:45</td>
-          <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</main>
+    <!-- Opções de escolha das turmas -->
+    <div class="filter-section">
+      <label for="turma">Selecione a Turma:</label>
+      <select id="turma" class="select-turma" onchange="atualizarPainelPorTurma()">
+        <option value="6_ano">6º Ano - Fundamental</option>
+        <option value="7_ano">7º Ano - Fundamental</option>
+        <option value="8_ano">8º Ano - Fundamental</option>
+        <option value="9_ano">9º Ano - Fundamental</option>
+        <option value="1_medio">1º Ano - Ensino Médio</option>
+        <option value="2_medio">2º Ano - Ensino Médio</option>
+        <option value="3_medio">3º Ano - Ensino Médio</option>
+      </select>
+    </div>
+
+    <!-- Cards gerados com os seus horários específicos -->
+    <div class="agenda-grid">
+      <div class="agenda-card">
+        <h3>Horário: 7:30</h3>
+        <button class="btn-reservar" data-horario="7:30" onclick="alternarReserva(this)">Reservar</button>
+      </div>
+      <div class="agenda-card">
+        <h3>Horário: 8:15</h3>
+        <button class="btn-reservar" data-horario="8:15" onclick="alternarReserva(this)">Reservar</button>
+      </div>
+      <div class="agenda-card">
+        <h3>Horário: 9:05</h3>
+        <button class="btn-reservar" data-horario="9:05" onclick="alternarReserva(this)">Reservar</button>
+      </div>
+      <div class="agenda-card">
+        <h3>Horário: 10:05</h3>
+        <button class="btn-reservar" data-horario="10:05" onclick="alternarReserva(this)">Reservar</button>
+      </div>
+      <div class="agenda-card">
+        <h3>Horário: 11:45</h3>
+        <button class="btn-reservar" data-horario="11:45" onclick="alternarReserva(this)">Reservar</button>
+      </div>
+    </div>
+
+    <!-- Nome alterado embaixo dos cronogramas -->
+    <div class="lab-footer">
+      Notebook
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      atualizarPainelPorTurma();
+    });
+
+    function atualizarPainelPorTurma() {
+      const turmaSelecionada = document.getElementById('turma').value;
+      const botoes = document.querySelectorAll('.btn-reservar');
+      
+      botoes.forEach(botao => {
+        const horarioReal = botao.getAttribute('data-horario');
+        const chaveLocal = `reserva_${turmaSelecionada}_${horarioReal}`;
+        
+        if (localStorage.getItem(chaveLocal) === 'true') {
+          botao.classList.add('reservado');
+          botao.innerText = 'Reservado';
+        } else {
+          botao.classList.remove('reservado');
+          botao.innerText = 'Reservar';
+        }
+      });
+    }
+
+    function alternarReserva(botao) {
+      const turmaSelecionada = document.getElementById('turma').value;
+      const horario = botao.getAttribute('data-horario');
+      const chaveLocal = `reserva_${turmaSelecionada}_${horario}`;
+
+      if (!botao.classList.contains('reservado')) {
+        botao.classList.add('reservado');
+        botao.innerText = 'Reservado';
+        localStorage.setItem(chaveLocal, 'true');
+      } else {
+        botao.classList.remove('reservado');
+        botao.innerText = 'Reservar';
+        localStorage.removeItem(chaveLocal);
+      }
+    }
+  </script>
 
 </body>
 </html>
