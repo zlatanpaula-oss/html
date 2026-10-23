@@ -115,9 +115,13 @@
             padding: 30px 20px;
             text-align: center;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 220px;
         }
 
         .card-item::before {
@@ -143,116 +147,128 @@
             opacity: 1;
         }
 
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
         .card-icon {
             font-size: 40px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             display: inline-block;
         }
 
         .card-title {
             font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #ffffff;
+            font-weight: 600;
         }
 
-        .card-desc {
+        .card-subtitle {
+            font-size: 13px;
             color: #8fa0dd;
-            font-size: 14px;
-            margin-bottom: 20px;
-            line-height: 1.4;
+            margin-top: 5px;
         }
 
-        .btn-agendar {
+        /* Botão Acessar */
+        .btn-acessar {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(to right, #2575fc, #6a11cb);
-            border: none;
-            border-radius: 25px;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
             color: #ffffff;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .btn-agendar:hover {
-            opacity: 0.9;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            header {
-                padding: 20px;
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            main {
-                padding: 20px;
-            }
+        .card-item:hover .btn-acessar {
+            background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <!-- Topbar idêntica ao ecossistema do app -->
     <header>
         <div class="brand-section">
-            <img src="https://i.postimg.cc/JndNJ4yc/Chat-GPT-Image-23-de-abr-de-2026-11-11-52-removebg-preview-1-(1).png" alt="Logo AgendaTech" class="logo-image">
             <div class="brand-name">AgendaTech</div>
         </div>
         <div class="user-profile">
             <span class="user-name">Olá, Usuário</span>
-            <button class="btn-sair" onclick="window.location.href='#'">Sair</button>
+            <button class="btn-sair">Sair</button>
         </div>
     </header>
 
-    <!-- Área de seleção de Agendas -->
     <main>
         <div class="welcome-text">
-            <h1>O que você deseja agendar hoje?</h1>
-            <p>Selecione uma das categorias abaixo para gerenciar os horários disponíveis.</p>
+            <h1>Seu Painel de Controle</h1>
+            <p>Selecione uma das opções abaixo para gerenciar seus agendamentos e informações.</p>
         </div>
 
         <div class="grid-categorias">
-            
-            <!-- Item 1: Laboratório TDS -->
+            <!-- Card de Calendário de Provas -->
             <div class="card-item">
-                <span class="card-icon">🔬</span>
-                <div class="card-title">Laboratório TDS</div>
-                <p class="card-desc">Agendamento de salas avançadas de desenvolvimento e testes de software.</p>
-                <button class="btn-agendar">Acessar Agenda</button>
+                <div class="card-content">
+                    <span class="card-icon">📅</span>
+                    <div class="card-title">Calendário de Provas</div>
+                </div>
+                <button class="btn-acessar">Acessar</button>
             </div>
 
-            <!-- Item 2: Laboratório Comum -->
+            <!-- Card de Calendário de Avisos -->
             <div class="card-item">
-                <span class="card-icon">💻</span>
-                <div class="card-title">Laboratório Comum</div>
-                <p class="card-desc">Reserva de laboratórios de informática convencionais para aulas e estudos.</p>
-                <button class="btn-agendar">Acessar Agenda</button>
+                <div class="card-content">
+                    <span class="card-icon">🔔</span>
+                    <div class="card-title">Quadro de Avisos</div>
+                </div>
+                <button class="btn-acessar">Acessar</button>
             </div>
 
-            <!-- Item 3: Tablets -->
+            <!-- Card de Itens Tecnológicos -->
             <div class="card-item">
-                <span class="card-icon">📱</span>
-                <div class="card-title">Tablets</div>
-                <p class="card-desc">Solicitação e reserva de dispositivos móveis para uso em sala de aula.</p>
-                <button class="btn-agendar">Acessar Agenda</button>
+                <div class="card-content">
+                    <span class="card-icon">📱</span>
+                    <div class="card-title">Itens Tecnológicos</div>
+                </div>
+                <button class="btn-acessar">Acessar</button>
             </div>
 
-            <!-- Item 4: Notebooks -->
+            <!-- Card de Laboratório TDS -->
             <div class="card-item">
-                <span class="card-icon">💻</span>
-                <div class="card-title">Notebooks</div>
-                <p class="card-desc">Reserva de computadores portáteis para apresentações, eventos ou reuniões.</p>
-                <button class="btn-agendar">Acessar Agenda</button>
+                <div class="card-content">
+                    <span class="card-icon">💻</span>
+                    <div class="card-title">Laboratório TDS</div>
+                </div>
+                <button class="btn-acessar">Acessar</button>
             </div>
 
+            <!-- Card de Ciências -->
+            <div class="card-item">
+                <div class="card-content">
+                    <span class="card-icon">🔬</span>
+                    <div class="card-title">Laboratório de Ciências</div>
+                </div>
+                <button class="btn-acessar">Acessar</button>
+            </div>
+
+            <!-- Card de Treinamentos de Segurança -->
+            <div class="card-item">
+                <div class="card-content">
+                    <span class="card-icon">⚠️</span>
+                    <div class="card-title">Treinamentos de Segurança</div>
+                    <div class="card-subtitle">Tornado e Queimada</div>
+                </div>
+                <button class="btn-acessar">Acessar</button>
+            </div>
         </div>
     </main>
 
 </body>
 </html>
-v
