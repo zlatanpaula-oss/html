@@ -45,10 +45,11 @@
   .welcome-text h1 { font-size: 28px; margin-bottom: 8px; }
   .welcome-text p { color: #8fa0dd; font-size: 16px; }
 
-  /* Filtro de Turma */
-  .filter-section { margin-bottom: 30px; display: flex; flex-direction: column; gap: 10px; max-width: 300px; }
+  /* Filtros de Turma e Disciplina */
+  .filters-container { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+  .filter-section { display: flex; flex-direction: column; gap: 10px; width: 280px; }
   .filter-section label { font-size: 14px; color: #8fa0dd; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-  .select-turma { 
+  .select-input { 
     padding: 12px; 
     background-color: rgba(255, 255, 255, 0.05); 
     border: 1px solid rgba(255, 255, 255, 0.2); 
@@ -59,8 +60,8 @@
     cursor: pointer;
     transition: border-color 0.3s;
   }
-  .select-turma:focus { border-color: #4facfe; }
-  .select-turma option { background-color: #0b112c; color: #ffffff; }
+  .select-input:focus { border-color: #4facfe; }
+  .select-input option { background-color: #0b112c; color: #ffffff; }
 
   /* Estilos da Grade de Horários e Botões */
   .agenda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
@@ -118,21 +119,35 @@
   <main>
     <div class="welcome-text">
       <h1>Bem-vindo ao seu painel</h1>
-      <p>Selecione sua turma e escolha um horário abaixo para realizar a sua reserva.</p>
+      <p>Selecione sua turma, disciplina e escolha um horário abaixo para realizar a sua reserva.</p>
     </div>
 
-    <!-- Opções de escolha das turmas -->
-    <div class="filter-section">
-      <label for="turma">Selecione a Turma:</label>
-      <select id="turma" class="select-turma" onchange="atualizarPainelPorTurma()">
-        <option value="6_ano">6º Ano - Fundamental</option>
-        <option value="7_ano">7º Ano - Fundamental</option>
-        <option value="8_ano">8º Ano - Fundamental</option>
-        <option value="9_ano">9º Ano - Fundamental</option>
-        <option value="1_medio">1º Ano - Ensino Médio</option>
-        <option value="2_medio">2º Ano - Ensino Médio</option>
-        <option value="3_medio">3º Ano - Ensino Médio</option>
-      </select>
+    <!-- Seção de Filtros (Turma e Disciplina) -->
+    <div class="filters-container">
+      <div class="filter-section">
+        <label for="turma">Selecione a Turma:</label>
+        <select id="turma" class="select-input" onchange="atualizarPainelPorFiltros()">
+          <option value="1_medio">1º Ano - Ensino Médio</option>
+          <option value="2_medio">2º Ano - Ensino Médio</option>
+          <option value="3_medio">3º Ano - Ensino Médio</option>
+        </select>
+      </div>
+
+      <div class="filter-section">
+        <label for="disciplina">Selecione a Disciplina:</label>
+        <select id="disciplina" class="select-input" onchange="atualizarPainelPorFiltros()">
+          <option value="banco_dados">Banco de Dados</option>
+          <option value="programacao_front_end">Programação Front-End</option>
+          <option value="programacao_back_end">Programação Back-End</option>
+          <option value="inovacao_tecnologica">Inovação Tecnológica</option>
+          <option value="analise_projeto">Análise e Projeto</option>
+          <option value="introducao_computacao">Introdução à Computação</option>
+          <option value="logica_programacao">Lógica de Programação</option>
+          <option value="introducao_programacao">Introdução à Programação</option>
+          <option value="computacao_grafica">Computação Gráfica</option>
+          <option value="programacao_mobile">Programação Mobile</option>
+        </select>
+      </div>
     </div>
 
     <!-- Cards gerados com os seus horários específicos -->
@@ -147,7 +162,7 @@
       </div>
       <div class="agenda-card">
         <h3>Horário: 9:05</h3>
-        <button class="btn-reservar" data-horario="9:05" onclick="alternarReserva(this)">Reservar</button>
+        <button class="btn-reservar" data-horario="9:05" onclick="always_block_or_toggle(this)">Reservar</button>
       </div>
       <div class="agenda-card">
         <h3>Horário: 10:05</h3>
@@ -168,20 +183,20 @@
   <script>
     // Carrega o estado das reservas ao abrir a página
     document.addEventListener("DOMContentLoaded", () => {
-      atualizarPainelPorTurma();
+      atualizarPainelPorFiltros();
     });
 
-    // Função que redesenha os botões com base na turma selecionada
-    function atualizarPainelPorTurma() {
+    // Função que redesenha os botões com base nos filtros selecionados
+    function atualizarPainelPorFiltros() {
       const turmaSelecionada = document.getElementById('turma').value;
+      const disciplinaSelecionada = document.getElementById('disciplina').value;
       const botoes = document.querySelectorAll('.btn-reservar');
       
       botoes.forEach(botao => {
-        const horario = Math.random(); // Evita bugs de escopo de loop interno no JS antigo
         const horarioReal = botao.getAttribute('data-horario');
         
-        // Chave única combinando a turma + o horário para salvar de forma independente
-        const chaveLocal = `reserva_${turmaSelecionada}_${horarioReal}`;
+        // Chave única combinando a turma + disciplina + o horário para salvar de forma independente
+        const chaveLocal = `reserva_${turmaSelecionada}_${disciplinaSelecionada}_${horarioReal}`;
         
         if (localStorage.getItem(chaveLocal) === 'true') {
           botao.classList.add('reservado');
@@ -195,8 +210,9 @@
 
     function alternarReserva(botao) {
       const turmaSelecionada = document.getElementById('turma').value;
+      const disciplinaSelecionada = document.getElementById('disciplina').value;
       const horario = botao.getAttribute('data-horario');
-      const chaveLocal = `reserva_${turmaSelecionada}_${horario}`;
+      const chaveLocal = `reserva_${turmaSelecionada}_${disciplinaSelecionada}_${horario}`;
 
       if (!botao.classList.contains('reservado')) {
         botao.classList.add('reservado');
@@ -207,6 +223,11 @@
         botao.innerText = 'Reservar';
         localStorage.removeItem(chaveLocal);
       }
+    }
+    
+    // Vincula o botão do meio para a função correta caso necessário
+    function always_block_or_toggle(botao) {
+      alternarReserva(botao);
     }
   </script>
 
